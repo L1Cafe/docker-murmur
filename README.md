@@ -1,6 +1,6 @@
 ## Description
 
-This is a barebones docker container built using busybox and a statically compiled version of murmurd from the [official website](https://www.mumble.info).
+This is a barebones docker container built using busybox and a statically compiled version of murmur from the [official website](https://www.mumble.info).
 
 It's configured to look for the configuration file in `/etc/murmur.ini`.
 
@@ -38,7 +38,7 @@ If you want to tweak the provided murmur.ini, you should run:
 docker cp your-container-name:/etc/murmur.ini /path/to/murmur.ini
 ```
 
-If you are using the built in volume at `/data/`, then you should sure your config contains:
+If you are using the built in volume at `/data/`, then you should ensure your config contains:
 
 ```ini
 database=/data/murmur.sqlite
