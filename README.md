@@ -9,21 +9,17 @@ It's configured to look for the configuration file in `/etc/murmur.ini`.
 The recommended way to run this container is as follows:
 
 ```bash
-$ docker run -d -p 64738:64738 -p 64738:64738/udp mattikus/murmur
+$ docker run --name murmur -d -p 64738:64738 -p 64738:64738/udp \
+    -v /path/to/data:/data hellwyvern/murmur
 ```
 
-To have the container store the sqlite database on your filesystem instead, you can run:
-
-```bash
-$ docker run -d -p 64738:64738 -p 64738:64738/udp \
-    -v /path/to/data:/data mattikus/murmur
-```
+Replace `/path/to/data` to the path you want Mumble to save its data in your Docker host.
 
 ## Important notes
 
 ### Getting the super-user password
 
-On first run, if you don't already have an existing state database, you'll want to look at the logs for your container to get the super-user password: 
+On first run, if you don't already have an existing state database, you'll want to look at the logs for your container to get the super-user password:
 
 ```bash
 $ docker logs murmur 2>&1 | grep Password
@@ -35,7 +31,7 @@ $ docker logs murmur 2>&1 | grep Password
 If you want to tweak the provided murmur.ini, you should run:
 
 ```bash
-docker cp your-container-name:/etc/murmur.ini /path/to/murmur.ini
+docker cp murmur:/etc/murmur.ini /path/to/murmur.ini
 ```
 
 If you are using the built in volume at `/data/`, then you should ensure your config contains:
@@ -48,6 +44,5 @@ To run the container with your tweaked murmur.ini:
 
 ```bash
 $ docker run -d -p 64738:64738 -p 64738:64738/udp \
-    -v /path/to/murmur.ini:/etc/murmur.ini mattikus/murmur
+    -v /path/to/murmur.ini:/etc/murmur.ini hellwyvern/murmur
 ```
-
